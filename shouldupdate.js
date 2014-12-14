@@ -2,7 +2,8 @@ var filterKeyValue = require('object-filter'),
     deepEqual      = require('deep-equal');
 
 module.exports = shouldComponentUpdate;
-module.exports.isEqualState  = function isEqualState () { return deepEqual.apply(this, arguments); };
+module.exports.isDeepEqual = function isDeepEqual(a, b) { return deepEqual(a,b); };
+module.exports.isEqualState  = function isEqualState () { return module.exports.isDeepEqual.apply(this, arguments); };
 module.exports.isEqualCursor = function isEqualCursor (a, b) { return unCursor(a) === unCursor(b); };
 module.exports.isCursor = isCursor;
 
@@ -93,12 +94,13 @@ function hasChangedCursors (current, next) {
 
 function hasChangedProperties (current, next) {
   var isCursor = module.exports.isCursor;
+  var isDeepEqual = module.exports.isDeepEqual;
 
   current = filterKeyValue(current, not(isCursor));
   next    = filterKeyValue(next, not(isCursor));
 
   for (var key in current) {
-    if (!deepEqual(current[key], next[key])) {
+    if (!isDeepEqual(current[key], next[key])) {
       return true;
     }
   }
