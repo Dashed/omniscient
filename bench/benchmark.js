@@ -81,6 +81,10 @@ Promise.all([
           };
         }
 
+        var generateImmutable = function() {
+          return Immutable.fromJS({ foo: 'bar', bar: [1, 2, 3] });
+        }
+
         vm.runInNewContext(source.source, {
           describe: describe,
           it: it,
@@ -89,7 +93,8 @@ Promise.all([
           immstruct: immstruct,
           omniscient: omniscient,
           Cursor: Cursor,
-          Immutable: Immutable
+          Immutable: Immutable,
+          generateImmutable: generateImmutable
         }, source.path);
       });
     });

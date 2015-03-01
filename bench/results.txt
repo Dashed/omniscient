@@ -1,0 +1,75 @@
+ran with iojs-v1.4.1
+
+shouldComponentUpdate on no input
+  Old:   143,962   146,442   149,008 ops/sec
+  New:   103,602   113,140   124,611 ops/sec
+  compare: 1 1
+  diff: -22.75%
+  rme: 6.62%
+shouldComponentUpdate when cursors are same
+  Old:    14,080    15,172    16,447 ops/sec
+  New:    20,576    21,872    23,341 ops/sec
+  compare: 1 1
+  diff: 44.16%
+  rme: 7.06%
+shouldComponentUpdate when cursors are different
+  Old:    11,530    11,914    12,324 ops/sec
+  New:    11,381    11,731    12,103 ops/sec
+  compare: 0 0
+  diff: -1.54%
+  rme: 3.2%
+shouldComponentUpdate when immutables are same
+  Old:    19,077    19,858    20,705 ops/sec
+  New:    23,764    24,664    25,634 ops/sec
+  compare: 1 1
+  diff: 24.2%
+  rme: 3.94%
+shouldComponentUpdate when many immutables are passed as the same reference
+  Old:       332       344       357 ops/sec
+  New:       327       341       355 ops/sec
+  compare: 0 0
+  diff: -1%
+  rme: 3.82%
+shouldComponentUpdate when large object is passed
+  Old:    10,441    10,702    10,977 ops/sec
+  New:    11,705    11,875    12,049 ops/sec
+  compare: 1 1
+  diff: 10.95%
+  rme: 2.04%
+shouldComponentUpdate when two large object is passed
+  Old:       612       627       642 ops/sec
+  New:       862       876       890 ops/sec
+  compare: 1 1
+  diff: 39.74%
+  rme: 2.02%
+shouldComponentUpdate when two large object is passed but as same input
+  Old:       981       999     1,017 ops/sec
+  New:    13,535    13,888    14,260 ops/sec
+  compare: 1 1
+  diff: 1290.12%
+  rme: 2.24%
+shouldComponentUpdate when immutables are different
+  Old:    12,887    13,265    13,665 ops/sec
+  New:    13,538    13,984    14,460 ops/sec
+  compare: 1 1
+  diff: 5.42%
+  rme: 3.11%
+shouldComponentUpdate when long arrays (1000 elements) are the same
+  Old:       678       703       732 ops/sec
+  New:     1,666     1,712     1,761 ops/sec
+  compare: 1 1
+  diff: 143.27%
+  rme: 3.33%
+shouldComponentUpdate when long arrays (1000 elements) are the same reference
+  Old:     3,414     3,494     3,579 ops/sec
+  New:     3,524     3,595     3,668 ops/sec
+  compare: 1 1
+  diff: 2.87%
+  rme: 2.18%
+shouldComponentUpdate when same input is passed (long array, 1000 items)
+  Old:     3,510     3,563     3,617 ops/sec
+  New:     3,828     3,897     3,968 ops/sec
+  compare: 1 1
+  diff: 9.38%
+  rme: 1.65%
+all done

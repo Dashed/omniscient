@@ -2,6 +2,14 @@
 var component = omniscient;
 var shouldComponentUpdate = component.shouldComponentUpdate;
 
+// Immutable.fromJS is broken for some reason
+/**
+var data = Immutable.fromJS({ foo: 'bar', bar: [1, 2, 3] });
+console.log(Immutable.Map.isMap(data)); // => false
+var foo = { foo: 'bar', bar: [1, 2, 3] };
+console.log(foo === Immutable.fromJS(foo)) // => true
+**/
+
 describe('shouldComponentUpdate', function () {
 
   it('on no input', function () {
@@ -9,8 +17,25 @@ describe('shouldComponentUpdate', function () {
     shouldComponentUpdate.call({ }, { })
   });
 
+  it('when cursors are same', function () {
+    var cursor1 = Cursor.from(generateImmutable(), ['foo']);
+
+    shouldComponentUpdate.call({
+      props: { d: cursor1 },
+    }, { d: cursor1 });
+  });
+
+  it('when cursors are different', function () {
+    var cursor1 = Cursor.from(generateImmutable(), ['foo']);
+    var cursor2 = Cursor.from(generateImmutable(), ['bar']);
+
+    shouldComponentUpdate.call({
+      props: { d: cursor1},
+    }, { d: cursor2})
+  });
+
   it('when immutables are same', function () {
-    var data = Immutable.fromJS({ foo: 'bar', bar: [1, 2, 3] });
+    var data = generateImmutable();
 
     shouldComponentUpdate.call({
       props: { d: data},
@@ -20,7 +45,7 @@ describe('shouldComponentUpdate', function () {
   it('when many immutables are passed as the same reference', function () {
     var structures = {};
     for(var i = 0; i < 100; i++) {
-      structures['data' + i] = Immutable.fromJS({ foo: 'bar', bar: [1, 2, 3] });
+      structures['data' + i] = generateImmutable();
     }
 
     shouldComponentUpdate.call({
@@ -67,8 +92,8 @@ describe('shouldComponentUpdate', function () {
   });
 
   it('when immutables are different', function () {
-    var data = Immutable.fromJS({ foo: 'bar', bar: [1, 2, 3] });
-    var data2 = Immutable.fromJS({ foo: 'bar', bar: [1, 2, 3] });
+    var data = generateImmutable();
+    var data2 = generateImmutable();
 
     shouldComponentUpdate.call({
       props: { d: data},
