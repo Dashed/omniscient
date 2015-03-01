@@ -1,7 +1,8 @@
 "use strict";
 
 var filter  = require('lodash.pick'),
-    isEqual = require('lodash.isequal');
+    isEqual = require('lodash.isequal'),
+    isEmpty = require('lodash.isempty');
 
 var isNotIgnorable = not(or(isStatics, isChildren));
 
@@ -71,6 +72,10 @@ function factory (methods) {
   function shouldComponentUpdate (nextProps, nextState) {
     if (nextProps === this.props && nextState === this.state) {
       if (debug) debug.call(this, 'shouldComponentUpdate => false (equal input)');
+      return false;
+    }
+
+    if (isEmpty(nextProps) && isEmpty(this.props) && isEmpty(nextState) && isEmpty(this.this.state)) {
       return false;
     }
 
