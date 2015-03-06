@@ -157,7 +157,12 @@ function factory (methods) {
    * @api public
    */
   function isEqualCursor (a, b) {
-    return _unCursor(a) === _unCursor(b);
+    var
+    n = a._keyPath.length - 1,
+    m = n >= 0 ? n : 0;
+    return _unCursor(a) === _unCursor(b) &&
+       n === b._keyPath.length &&
+       a._keyPath[m] === b._keyPath[m];
   }
 
   function debugFn (pattern, logFn) {
